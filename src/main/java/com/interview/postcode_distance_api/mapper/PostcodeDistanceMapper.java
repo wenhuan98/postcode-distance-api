@@ -19,16 +19,18 @@ public class PostcodeDistanceMapper {
     public PostcodeLocation constructPostcodeDetailsToLocationDto(PostcodeDetails postcodeDetails) {
         return PostcodeLocation.builder()
                 .postcode(postcodeDetails.getPostcode())
-                .latitude(postcodeDetails.getLatitude())
-                .longitude(postcodeDetails.getLongitude())
+                .coordinate(com.interview.postcode_distance_api.dto.PostcodeCoordinate.builder()
+                        .latitude(postcodeDetails.getLatitude())
+                        .longitude(postcodeDetails.getLongitude())
+                        .build())
                 .build();
     }
 
     public PostcodeDetails constructPostcodeLocationToPostcodeDetails(PostcodeLocation postcodeLocation) {
         return PostcodeDetails.builder()
                 .postcode(postcodeLocation.getPostcode())
-                .latitude(postcodeLocation.getLatitude())
-                .longitude(postcodeLocation.getLongitude())
+                .latitude(postcodeLocation.getCoordinate().getLatitude())
+                .longitude(postcodeLocation.getCoordinate().getLongitude())
                 .build();
     }
 }

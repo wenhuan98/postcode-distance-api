@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostcodeLocation {
+public class AuthRequest {
 
-    @NotBlank(message = "Postcode is required")
-    private String postcode;
-    private PostcodeCoordinate coordinate;
+    @NotBlank(message = "Username is required")
+    private String username;
+
+    @NotBlank(message = "Password is required")
+    private String password;
 }
+

@@ -1,10 +1,13 @@
 package com.interview.postcode_distance_api.controller;
 
+import com.interview.postcode_distance_api.dto.PostcodeCoordinate;
 import com.interview.postcode_distance_api.dto.PostcodeDistanceRequest;
 import com.interview.postcode_distance_api.dto.PostcodeDistanceResponse;
 import com.interview.postcode_distance_api.dto.PostcodeLocation;
 import com.interview.postcode_distance_api.factory.PostcodeFactoryRegistry;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/postcodes")
 @AllArgsConstructor
+@Slf4j
 public class PostcodeDistanceController {
 
     private final PostcodeFactoryRegistry postcodeFactoryRegistry;
@@ -20,6 +24,14 @@ public class PostcodeDistanceController {
     public ResponseEntity<PostcodeDistanceResponse> getPostcodeDistance (
             @RequestParam String country,
             @RequestBody PostcodeDistanceRequest postcodeDistanceRequest) {
+
+        log.info(
+                "event=postcode_distance_requested country={} origin={} destination={}",
+                country,
+                postcodeDistanceRequest.getOrigin(),
+                postcodeDistanceRequest.getDestination()
+        );
+
         var postcodeDistance = postcodeFactoryRegistry
                 .getServiceFactory(country)
                 .getPostcodeDistanceService()
@@ -31,7 +43,7 @@ public class PostcodeDistanceController {
     @PostMapping
     public ResponseEntity<PostcodeLocation> addPostcodeLocation(
             @RequestParam String country,
-            @RequestBody PostcodeLocation postcodeLocation) {
+            @RequestBody @Valid PostcodeLocation postcodeLocation) {
         var savedPostcodeLocation = postcodeFactoryRegistry
                 .getServiceFactory(country)
                 .getPostcodeManagementService()
@@ -45,11 +57,12 @@ public class PostcodeDistanceController {
     @PutMapping
     public ResponseEntity<PostcodeLocation> updatePostcodeLocation(
             @RequestParam String country,
-            @RequestBody PostcodeLocation postcodeLocation) {
+            @RequestParam String postcode,
+            @RequestBody PostcodeCoordinate postcodeCoordinate) {
         var updatedPostcodeLocation = postcodeFactoryRegistry
                 .getServiceFactory(country)
                 .getPostcodeManagementService()
-                .updatePostcodeDetails(postcodeLocation);
+                .updatePostcodeDetails(postcode, postcodeCoordinate);
 
         return ResponseEntity.ok(updatedPostcodeLocation);
     }

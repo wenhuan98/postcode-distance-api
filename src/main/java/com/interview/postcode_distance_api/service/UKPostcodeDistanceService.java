@@ -1,6 +1,7 @@
 package com.interview.postcode_distance_api.service;
 
 import com.interview.postcode_distance_api.dto.PostcodeDistanceResponse;
+import com.interview.postcode_distance_api.exception.PostcodeNotFoundException;
 import com.interview.postcode_distance_api.mapper.PostcodeDistanceMapper;
 import com.interview.postcode_distance_api.repository.model.PostcodeDetails;
 import com.interview.postcode_distance_api.util.MathHelper;
@@ -24,6 +25,10 @@ public class UKPostcodeDistanceService implements PostcodeDistanceService {
 
         PostcodeDetails originPostcodeDetails = postcodeDetailsMap.get(origin);
         PostcodeDetails destinationPostcodeDetails = postcodeDetailsMap.get(destination);
+
+        if (originPostcodeDetails == null || destinationPostcodeDetails == null) {
+            throw new PostcodeNotFoundException("One or both postcodes not found in the system");
+        }
 
         double originLatRadians = Math.toRadians(originPostcodeDetails.getLatitude());
         double destinationLatRadians = Math.toRadians(destinationPostcodeDetails.getLatitude());

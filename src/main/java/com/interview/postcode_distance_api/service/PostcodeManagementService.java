@@ -1,7 +1,7 @@
 package com.interview.postcode_distance_api.service;
 
+import com.interview.postcode_distance_api.dto.PostcodeCoordinate;
 import com.interview.postcode_distance_api.dto.PostcodeLocation;
-import com.interview.postcode_distance_api.repository.model.PostcodeDetails;
 
 public interface PostcodeManagementService {
 
@@ -9,7 +9,7 @@ public interface PostcodeManagementService {
 
     PostcodeLocation addPostcodeDetails(PostcodeLocation postcodeLocation);
 
-    PostcodeLocation updatePostcodeDetails(PostcodeLocation postcodeLocation);
+    PostcodeLocation updatePostcodeDetails(String postcode, PostcodeCoordinate postcodeCoordinate);
 
 
 }

@@ -1,6 +1,9 @@
 package com.interview.postcode_distance_api.service;
 
+import com.interview.postcode_distance_api.dto.PostcodeCoordinate;
 import com.interview.postcode_distance_api.dto.PostcodeLocation;
+import com.interview.postcode_distance_api.exception.PostcodeAlreadyExistsException;
+import com.interview.postcode_distance_api.exception.PostcodeNotFoundException;
 import com.interview.postcode_distance_api.mapper.PostcodeDistanceMapper;
 import com.interview.postcode_distance_api.repository.PostcodeDetailsRepository;
 import com.interview.postcode_distance_api.repository.model.PostcodeDetails;
@@ -27,7 +30,7 @@ public class UKPostcodeManagementService implements PostcodeManagementService {
                 .getPostcodeDetail(postcodeLocation.getPostcode());
 
         if (postcodeDetails.isPresent()) {
-            throw new IllegalArgumentException("Postcode already exists in the system");
+            throw new PostcodeAlreadyExistsException(postcodeLocation.getPostcode());
         }
 
         var dto = postcodeDistanceMapper.constructPostcodeLocationToPostcodeDetails(postcodeLocation);
@@ -39,17 +42,17 @@ public class UKPostcodeManagementService implements PostcodeManagementService {
 
     @Transactional
     @Override
-    public PostcodeLocation updatePostcodeDetails(PostcodeLocation postcodeLocation) {
+    public PostcodeLocation updatePostcodeDetails(String postcode, PostcodeCoordinate postcodeCoordinate) {
         PostcodeDetails existingPostcode = ukPostcodecoordinateService
-                .getPostcodeDetail(postcodeLocation.getPostcode())
-                .orElseThrow(() -> new IllegalArgumentException("Postcode not found in the system"));
+                .getPostcodeDetail(postcode)
+                .orElseThrow(() -> new PostcodeNotFoundException("Postcode not found in the system"));
 
-        if (postcodeLocation.getLatitude() != null) {
-            existingPostcode.setLatitude(postcodeLocation.getLatitude());
+        if (postcodeCoordinate.getLatitude() != null) {
+            existingPostcode.setLatitude(postcodeCoordinate.getLatitude());
         }
 
-        if (postcodeLocation.getLongitude() != null) {
-            existingPostcode.setLongitude(postcodeLocation.getLongitude());
+        if (postcodeCoordinate.getLongitude() != null) {
+            existingPostcode.setLongitude(postcodeCoordinate.getLongitude());
         }
 
         PostcodeDetails savedPostcodeDetails = postcodeDetailsRepository.save(existingPostcode);
@@ -57,6 +60,7 @@ public class UKPostcodeManagementService implements PostcodeManagementService {
         return postcodeDistanceMapper.constructPostcodeDetailsToLocationDto(savedPostcodeDetails);
     }
 
+    @Transactional
     @Override
     public void deletePostcodeDetails(String postcode) {
         postcodeDetailsRepository.deleteByPostcode(postcode);

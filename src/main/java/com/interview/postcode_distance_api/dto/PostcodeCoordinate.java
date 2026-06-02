@@ -1,6 +1,5 @@
 package com.interview.postcode_distance_api.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostcodeLocation {
-
-    @NotBlank(message = "Postcode is required")
-    private String postcode;
-    private PostcodeCoordinate coordinate;
+public class PostcodeCoordinate {
+    private Double latitude;
+    private Double longitude;
 }
