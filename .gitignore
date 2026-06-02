@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Local bulk reference data / database dumps ###
+# Keep large postcode seed files outside normal Git history.
+# Store/share them via Git LFS, object storage, or an import step instead.
+/src/main/resources/db/migration/V2__INSERT_UK_POSTCODE.sql
+
+
