@@ -1,11 +1,10 @@
 package com.interview.postcode_distance_api.controller;
 
 import com.interview.postcode_distance_api.dto.AuthRequest;
-import com.interview.postcode_distance_api.repository.model.UserCredential;
 import com.interview.postcode_distance_api.util.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
