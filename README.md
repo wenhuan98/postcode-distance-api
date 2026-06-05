@@ -2,6 +2,10 @@
 
 A simple API to calculate the straight line distance between two postcodes in the UK using Haversine formula. 
 
+## Prerequisites
+- JDK 21
+- Docker Desktop (required to run the database container locally)
+
 ## Installation
 1. Clone the repository
 2. Install dependencies using `mvn clean install`
