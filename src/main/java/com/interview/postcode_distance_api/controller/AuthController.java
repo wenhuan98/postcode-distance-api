@@ -31,6 +31,10 @@ public class AuthController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
+        if (userDetails == null) {
+            throw new IllegalStateException("Authenticated user details must not be null");
+        }
+
         return jwtUtil.generateToken(userDetails.getUsername());
 
     }
