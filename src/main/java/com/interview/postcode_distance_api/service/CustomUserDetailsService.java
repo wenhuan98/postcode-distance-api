@@ -10,22 +10,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 @NullMarked
 public class CustomUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserCredential userCredential = userRepository.findByUsername(username);
+        Optional<UserCredential> userCredential = userRepository.findByUsername(username);
 
-        if (userCredential == null) {
+        if (userCredential.isEmpty()) {
             throw new UsernameNotFoundException("User Not Found: " + username);
         }
         return User.builder()
-                .username(userCredential.getUsername())
-                .password(userCredential.getPassword())
+                .username(userCredential.get().getUsername())
+                .password(userCredential.get().getPassword())
                 .build();
     }
 }

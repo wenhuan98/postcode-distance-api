@@ -16,7 +16,7 @@ public class PostcodeFactoryRegistry {
         PostcodeServiceFactory service = factories.get(country.toUpperCase());
 
         if (service == null) {
-            throw new IllegalArgumentException(country + "is not supported yet");
+            throw new IllegalArgumentException(country + " country is not supported yet");
         }
 
         return service;

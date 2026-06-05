@@ -14,7 +14,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class UKPostcodeDistanceService implements PostcodeDistanceService {
 
-    private final UKPostcodecoordinateService postcodeCoordinateService;
+    private final UKPostcodeCoordinateService postcodeCoordinateService;
 
     private final PostcodeDistanceMapper postcodeDistanceMapper;
 

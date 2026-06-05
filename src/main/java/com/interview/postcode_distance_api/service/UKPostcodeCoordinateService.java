@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UKPostcodecoordinateService implements PostcodeCoordinateService {
+public class UKPostcodeCoordinateService implements PostcodeCoordinateService {
 
     private final PostcodeDetailsRepository postcodeDetailsRepository;
 

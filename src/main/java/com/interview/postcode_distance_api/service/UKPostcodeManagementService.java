@@ -19,7 +19,7 @@ public class UKPostcodeManagementService implements PostcodeManagementService {
 
     private final PostcodeDetailsRepository postcodeDetailsRepository;
 
-    private final UKPostcodecoordinateService ukPostcodecoordinateService;
+    private final UKPostcodeCoordinateService ukPostcodecoordinateService;
 
     private final PostcodeDistanceMapper postcodeDistanceMapper;
 
@@ -45,7 +45,7 @@ public class UKPostcodeManagementService implements PostcodeManagementService {
     public PostcodeLocation updatePostcodeDetails(String postcode, PostcodeCoordinate postcodeCoordinate) {
         PostcodeDetails existingPostcode = ukPostcodecoordinateService
                 .getPostcodeDetail(postcode)
-                .orElseThrow(() -> new PostcodeNotFoundException("Postcode not found in the system"));
+                .orElseThrow(() -> new PostcodeNotFoundException(postcode));
 
         if (postcodeCoordinate.getLatitude() != null) {
             existingPostcode.setLatitude(postcodeCoordinate.getLatitude());
