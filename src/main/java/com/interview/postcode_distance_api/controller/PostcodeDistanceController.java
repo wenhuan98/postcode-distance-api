@@ -78,8 +78,4 @@ public class PostcodeDistanceController {
 
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 }
