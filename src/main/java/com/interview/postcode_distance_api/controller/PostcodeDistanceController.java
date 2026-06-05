@@ -26,7 +26,7 @@ public class PostcodeDistanceController {
             @RequestBody PostcodeDistanceRequest postcodeDistanceRequest) {
 
         log.info(
-                "event=postcode_distance_requested country={} origin={} destination={}",
+                "Getting postcodes distance with: country={} origin={} destination={}",
                 country,
                 postcodeDistanceRequest.getOrigin(),
                 postcodeDistanceRequest.getDestination()
