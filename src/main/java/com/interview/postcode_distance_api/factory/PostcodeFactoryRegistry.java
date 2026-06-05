@@ -1,6 +1,5 @@
 package com.interview.postcode_distance_api.factory;
 
-import com.interview.postcode_distance_api.service.PostcodeDistanceService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

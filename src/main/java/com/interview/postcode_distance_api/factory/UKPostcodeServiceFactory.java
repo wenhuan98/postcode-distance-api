@@ -4,8 +4,6 @@ import com.interview.postcode_distance_api.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
 @Component("UK")
 @AllArgsConstructor
 public class UKPostcodeServiceFactory implements PostcodeServiceFactory {
